@@ -1,11 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+// Airplane
 var startDate = new MyDate(2023, 12, 21, 12, 00);
 var finishDate = new MyDate(2023, 12, 21, 22, 00);
 var airplane = new Airplane("Ukraine", "Egypt", startDate, finishDate);
 
 Console.WriteLine("Total time in minutes:  {0}", airplane.GetTotalTime());
 Console.WriteLine("Is arriving today: {0}", airplane.IsArrivingToday());
+Console.WriteLine();
+
+// Product
+var currency = new Currency("Dollar", 36.5M);
 
 class Airplane
 {
@@ -79,6 +84,18 @@ class MyDate
     protected int _hours { get; set; }
     protected int _minutes { get; set; }
 
+    public MyDate()
+    {
+        
+    }
+
+    public MyDate(int day, int hours, int minutes)
+    {
+        _day = day;
+        _hours = hours;
+        _minutes = minutes;
+    }
+    
     public MyDate(int year, int month, int day, int hours, int minutes)
     {
         _year = year;
@@ -88,6 +105,15 @@ class MyDate
         _minutes = minutes;
     }
 
+    public MyDate(MyDate myDate)
+    {
+        _year = myDate._year;
+        _month = myDate._month;
+        _day = myDate._day;
+        _hours = myDate._hours;
+        _minutes = myDate._minutes;
+    }
+    
     public int Year
     {
         get => _year;
@@ -112,5 +138,45 @@ class MyDate
     {
         get => _minutes;
         set => _minutes = value;
+    }
+}
+
+
+class Currency
+{
+    protected string _name { get; set; } = null!;
+    protected decimal _exRate { get; set; }
+
+    public Currency()
+    {
+        
+    }
+
+    public Currency(string name)
+    {
+        _name = name;
+    }
+
+    public Currency(string name, decimal exRate)
+    {
+        _name = name;
+        _exRate = exRate;
+    }
+
+    public Currency(Currency currency)
+    {
+        _name = currency._name;
+        _exRate = currency._exRate;
+    }
+    
+    public string Name
+    {
+        get => _name;
+        set => _name = value;
+    }
+    public decimal ExRate
+    {
+        get => _exRate;
+        set => _exRate = value;
     }
 }
