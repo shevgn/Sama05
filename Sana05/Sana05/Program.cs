@@ -11,6 +11,10 @@ Console.WriteLine();
 
 // Product
 var currency = new Currency("Dollar", 36.5M);
+var product = new Product("Knife", 9M, currency, 30, "AmongTrees", 0.4f);
+
+Console.WriteLine("One {0} costs {1} UAH", product.Name, product.GetPriceInUAH());
+Console.WriteLine("All {0}s cost {1} UAH", product.Name, product.GetTotalPriceInUAH());
 
 class Airplane
 {
@@ -141,6 +145,91 @@ class MyDate
     }
 }
 
+class Product
+{
+    protected string _name { get; set; } = null!;
+    protected decimal _price { get; set; }
+    protected Currency _cost { get; set; } = null!;
+    protected int _quantity { get; set; }
+    protected string _producer { get; set; } = null!;
+    protected float _weight { get; set; }
+
+    public Product()
+    {
+        
+    }
+
+    public Product(string name, decimal price)
+    {
+        _name = name;
+        _price = price;
+    }
+    public Product(string name, decimal price, Currency cost, int quantity, string producer, float weight)
+    {
+        _name = name;
+        _price = price;
+        _cost = cost;
+        _quantity = quantity;
+        _producer = producer;
+        _weight = weight;
+    }
+
+    public Product(Product product)
+    {
+        _name = product._name;
+        _price = product._price;
+        _cost = product._cost;
+        _quantity = product._quantity;
+        _producer = product._producer;
+        _weight = product._weight;
+    }
+    public decimal GetPriceInUAH()
+    {
+        return _price * _cost.ExRate;
+    }
+
+    public decimal GetTotalPriceInUAH()
+    {
+        return _price * _cost.ExRate * _quantity;
+    }
+
+    public float GetTotalWeight()
+    {
+        return _weight * _quantity;
+    }
+
+    public string Name
+    {
+        get => _name;
+        set => _name = value;
+    }
+
+    public decimal Price
+    {
+        get => _price;
+        set => _price = value;
+    }
+    public Currency Cost
+    {
+        get => _cost;
+        set => _cost = value;
+    }
+    public int Quantity
+    {
+        get => _quantity;
+        set => _quantity = value;
+    }
+    public string Producer
+    {
+        get => _producer;
+        set => _producer = value;
+    }
+    public float Weight
+    {
+        get => _weight;
+        set => _weight = value;
+    }
+}
 
 class Currency
 {
